@@ -11,7 +11,7 @@ const initialState: State = {
 function App() {
   const [state, dispatch] = useReducer(foodsReducer, initialState);
   const [showModal, setShowModal] = useState(false);
-  const [dataToEdit, setDataToEdit] = useState<Contact | undefined>(undefined);
+  const [dataToEdit, setDataToEdit] = useState<Food | undefined>(undefined);
   useEffect(() => {
     if (!showModal) {
       setDataToEdit(undefined);
