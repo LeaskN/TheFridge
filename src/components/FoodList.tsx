@@ -1,9 +1,16 @@
 import { FC } from 'react';
-import { Food } from '../reducer/foodReducer';
+import { Food, Action } from '../reducer/foodReducer';
+import FoodItem from './FoodItem';
 interface FoodListProps {
   foods: Food[];
+  handleEdit: (id: number) => void;
+  dispatch: React.Dispatch<Action>;
 }
-const FoodList: FC<FoodListProps> = ({ foods }) => {
+const FoodList: FC<FoodListProps> = ({
+  foods,
+  handleEdit,
+  dispatch
+}) => {
   return (
     <div className='foods-list'>
       <h3 className='foods-list-title'>List of Foods</h3>
@@ -11,19 +18,23 @@ const FoodList: FC<FoodListProps> = ({ foods }) => {
         <table className='foods-list-table'>
           <thead className='foods-list-header'>
             <tr>
-              <th>First Name</th>
-              <th>Last Name</th>
-              <th>Phone</th>
+              <th>Food Name</th>
+              <th>Expiration Date</th>
+              <th>Purchase Date</th>
+              <th>Edit</th>
+              <th>Delete</th>
             </tr>
           </thead>
           <tbody>
-            {foods.map(({ foodName, expirationDate, purchasedDate }) => (
-              <tr>
-                <td>{foodName}</td>
-                <td>{expirationDate}</td>
-                <td>{purchasedDate}</td>
-              </tr>
-            ))}
+            {
+              foods.map((food) => (
+                <FoodItem 
+                  key={food.id} 
+                  {...food} 
+                  handleEdit={handleEdit} 
+                  dispatch={dispatch} 
+                />))
+            }
           </tbody>
         </table>
       </div>
