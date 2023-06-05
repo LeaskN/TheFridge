@@ -7,14 +7,14 @@ interface FoodFormProps {
 }
 
 const FoodForm: FC<FoodFormProps> = ({ dispatch }) => {
-  const [food, setContact] = useState({
+  const [food, setFood] = useState({
     foodName: '',
     purchasedDate: '',
     expirationDate: ''
   });
   const handleOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
-    setContact((prevState) => {
+    setFood((prevState) => {
       return {
         ...prevState,
         [name]: value
