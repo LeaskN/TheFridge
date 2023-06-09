@@ -5,16 +5,22 @@ import { Action, Food } from '../reducer/foodReducer';
 interface ExtraProps {
   handleEdit: (id:number) => void;
   dispatch: React.Dispatch<Action>;
+  food: Food[];
 }
 
 // type FoodProps = FoodType & ExtraProps;
 
-const FoodItem: FC<Food & ExtraProps> = ({ id, foodName, expirationDate, purchasedDate, handleEdit, dispatch }) => {
+const FoodItem: FC<Food & ExtraProps> = ({ id, food, handleEdit, dispatch }) => {
   return (
     <tr>
-      <td>{foodName}</td>
-      <td>{expirationDate}</td>
-      <td>{purchasedDate}</td>
+      {console.log(Object.keys(food).map((item) => food[item]))}
+      {
+        Object.keys(food)
+        .filter(item => item !== 'id' && item !== 'title')
+        .map(item => <td>{food[item]}</td>)
+      } 
+     
+
       <td>
         <AiFillEdit size={20} onClick={() => handleEdit(id)} className='icon' />
       </td>

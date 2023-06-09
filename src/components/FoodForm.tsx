@@ -8,11 +8,15 @@ interface FoodFormProps {
   toggleModal: () => void;
 }
 
-const FoodForm: FC<FoodFormProps> = ({ dispatch, dataToEdit, toggleModal}) => {
+const FoodForm: FC<FoodFormProps> = ({ dispatch, dataToEdit, toggleModal }) => {
   const [food, setFood] = useState({
     foodName: dataToEdit?.foodName ? dataToEdit.foodName : '',
     purchasedDate: dataToEdit?.purchasedDate ? dataToEdit.purchasedDate : '',
-    expirationDate: dataToEdit?.expirationDate ? dataToEdit.expirationDate : ''
+    expirationDate: dataToEdit?.expirationDate ? dataToEdit.expirationDate : '',
+    freezer: dataToEdit?.freezer ? dataToEdit.freezer : '',
+    open: dataToEdit?.open ? dataToEdit.open : '',
+    location: dataToEdit?.location ? dataToEdit.location : '',
+    title: dataToEdit?.title ? dataToEdit.title : '',
   });
   const handleOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
@@ -25,7 +29,7 @@ const FoodForm: FC<FoodFormProps> = ({ dispatch, dataToEdit, toggleModal}) => {
   };
   const handleOnSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    if(!dataToEdit){
+    if (!dataToEdit) {
       dispatch({
         type: 'ADD_FOOD',
         payload: {
@@ -35,8 +39,12 @@ const FoodForm: FC<FoodFormProps> = ({ dispatch, dataToEdit, toggleModal}) => {
       });
       setFood({
         foodName: '',
-        expirationDate:'',
-        purchasedDate:''
+        purchasedDate: '',
+        expirationDate: '',
+        freezer: '',
+        open: '',
+        location: '',
+        title: '',
       })
     } else {
       dispatch({
@@ -54,39 +62,27 @@ const FoodForm: FC<FoodFormProps> = ({ dispatch, dataToEdit, toggleModal}) => {
   };
   return (
     <Form onSubmit={handleOnSubmit} className='food-form'>
-      <Form.Group controlId='foodName'>
-        <Form.Label>Food Name</Form.Label>
-        <Form.Control
-          className='foodName'
-          name='foodName'
-          value={food.foodName}
-          type='text'
-          onChange={handleOnChange}
-        />
-      </Form.Group>
-      <Form.Group controlId='purchasedDate'>
-        <Form.Label>Purchased Date</Form.Label>
-        <Form.Control
-          className='purchasedDate'
-          name='purchasedDate'
-          value={food.purchasedDate}
-          type='text'
-          onChange={handleOnChange}
-        />
-      </Form.Group>
-      <Form.Group controlId='expirationDate'>
-        <Form.Label>Expiration Date</Form.Label>
-        <Form.Control
-          className='expirationDate'
-          name='expirationDate'
-          value={food.expirationDate}
-          type='text'
-          onChange={handleOnChange}
-        />
-      </Form.Group>
+      {/* <ul>
+      {Object.keys(food).map((key) => {
+        return <li>{key}: {food[key]}</li>
+      })}
+      </ul> */}
+      {Object.keys(food).map((key) => {
+        return <Form.Group controlId='foodName'>
+          <Form.Label>{key}</Form.Label>
+          <Form.Control
+            className={key}
+            name={key}
+            value={food[key]}
+            type='text'
+            onChange={handleOnChange}
+          />
+          {/* {key}: {food[key]} */}
+          </Form.Group>
+      })}
       <Form.Group controlId='submit'>
         <Button variant='primary' type='submit' className='submit-btn'>
-        {dataToEdit ? 'Update Food' : 'Add Food'}
+          {dataToEdit ? 'Update Food' : 'Add Food'}
         </Button>
       </Form.Group>
     </Form>

@@ -11,6 +11,7 @@ const FoodList: FC<FoodListProps> = ({
   handleEdit,
   dispatch
 }) => {
+  console.log(foods)
   return (
     <div className='foods-list'>
       <h3 className='foods-list-title'>List of Foods</h3>
@@ -21,6 +22,9 @@ const FoodList: FC<FoodListProps> = ({
               <th>Food Name</th>
               <th>Expiration Date</th>
               <th>Purchase Date</th>
+              <th>Freezer</th>
+              <th>Open</th>
+              <th>Location</th>
               <th>Edit</th>
               <th>Delete</th>
             </tr>
@@ -30,7 +34,7 @@ const FoodList: FC<FoodListProps> = ({
               foods.map((food) => (
                 <FoodItem 
                   key={food.id} 
-                  {...food} 
+                  food={food}
                   handleEdit={handleEdit} 
                   dispatch={dispatch} 
                 />))
